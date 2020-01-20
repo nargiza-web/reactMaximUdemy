@@ -2,9 +2,24 @@ import React, {Component} from 'react'; //{useState}
 import './Person/Person.css';
 import './App.css';
 import Person from'./Person/Person';
+import styled from 'styled-components'
 
+//import Radium, {StyleRoot} from 'radium'
 
+const StyledButton = styled.button`
 
+background-color: ${props => props.alt ? 'red' : 'green'};
+      color: white;
+      font: inherit;
+      border: 1px solid blue;
+      padding: 8px;
+      cursor: pointer;
+      
+      &:hover {
+        background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
+        color: black; }
+
+`
 
 class App extends Component {
   state = {
@@ -59,17 +74,7 @@ class App extends Component {
     this.setState({persons: persons})
   }
   
-  render() {
-    
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer'
-    }
-    
+  render() {    
     let persons = null;
     
     if(this.state.showPersons){
@@ -86,7 +91,11 @@ class App extends Component {
         })}
       </div> 
       )
-      style.backgroundColor = 'red'
+      // style.backgroundColor = 'red'
+      // style[':hover'] = {
+      //   backgroundColor: 'salmon',
+      //   color: 'black'
+      // }
     }
     
     const classes = [];
@@ -98,24 +107,30 @@ class App extends Component {
     }
     
     return (
-      <div className = "App">
-        <h1>Hi, I'm React App </h1>
-        <p className={classes.join(' ')}>This is really working</p>
-        
-        <button 
-        style = {style}
-        onClick={() => this.togglePersonsHandler()}>Toggle Persons</button>
-        {persons}
-         
-      
+      //<StyleRoot>
+          <div className = "App">
+          <h1>Hi, I'm React App </h1>
+          <p className={classes.join(' ')}>This is really working</p>
+          
+          <button 
+          className = "button"
+          alt={this.state.showPersons}
+          onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          {persons}
+          </div>
+     // </StyleRoot>
 
-      </div>
     )
     // return React.createElement('div',{className: 'App'}, React.createElement('h1',null,"Does this work now?"));
   }
+
 }
 
 export default App;
+
+
+
+//export default Radium(App);
 
 // <button 
 //style = {style}
